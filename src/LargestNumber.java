@@ -3,12 +3,36 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class LargestNumber {
-   
-        // TODO: Read N
-        // TODO: Read N strings into an array
-        // TODO: Sort the strings using a custom comparator
-        // Comparator logic: (str1, str2) -> (str2 + str1).compareTo(str1 + str2)
-        // TODO: Handle edge case where all numbers are "0" (e.g. input 0 0 -> output "0")
-        // TODO: Concatenate sorted strings and print
-    
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in)) {
+            if (!sc.hasNextInt()) return;
+            int n = sc.nextInt();
+            String[] nums = new String[n];
+            for (int i = 0; i < n; i++) {
+                if (sc.hasNext()) {
+                    nums[i] = sc.next();
+                }
+            }
+
+            Arrays.sort(nums, new Comparator<String>() {
+                @Override
+                public int compare(String s1, String s2) {
+                    String order1 = s1 + s2;
+                    String order2 = s2 + s1;
+                    return order2.compareTo(order1);
+                }
+            });
+
+            if (nums[0].equals("0")) {
+                System.out.println("0");
+                return;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for (String s : nums) {
+                sb.append(s);
+            }
+            System.out.println(sb.toString());
+        }
+    }
 }
